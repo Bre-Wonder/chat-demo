@@ -16,7 +16,7 @@ const Screen1 = ({ navigation }) => {
       </TextInput>
       <Button
         title="Go to Screen 2"
-        onPress={() => navigation.navigate('Screen2')}
+        onPress={() => navigation.navigate('Screen2', {name: name})}
         />
     </View>
 
