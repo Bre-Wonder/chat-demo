@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { StyleSheet, View, Text, Button, TextInput } from "react-native"; 
 
-const startScreen = ({ navigation }) => {
+const StartScreen = ({ navigation }) => {
   const [name, setName] = useState('');
 
   return (
@@ -16,7 +16,7 @@ const startScreen = ({ navigation }) => {
       </TextInput>
       <Button
         title="Go to Chat Screen"
-        onPress={() => navigation.navigate('chatScreen', {name: name})}
+        onPress={() => navigation.navigate('ChatScreen', {name: name})}
         />
     </View>
 
@@ -38,4 +38,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default startScreen;
+export default StartScreen;
