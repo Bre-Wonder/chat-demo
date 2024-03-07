@@ -1,12 +1,15 @@
 import { useState } from "react";
-import { StyleSheet, View, Text, Button, TextInput } from "react-native"; 
+import {ImageBackground StyleSheet, View, Text, Button, TextInput } from "react-native";
+import BackgroundImage.png from './A5-chatapp-assets/BackgroundImage.png';
 
 const StartScreen = ({ navigation }) => {
   const [name, setName] = useState('');
 
+  const image = {uri: ''};
+
   return (
     <View style={styles.container}>
-      <Text>Hello Start Screen</Text>
+      <ImageBackground>
       <TextInput
         style={styles.textInput}
         value={name}
@@ -18,6 +21,9 @@ const StartScreen = ({ navigation }) => {
         title="Go to Chat Screen"
         onPress={() => navigation.navigate('ChatScreen', {name: name})}
         />
+      </ImageBackground>
+      <Text>Hello Start Screen</Text>
+      
     </View>
 
   );
@@ -28,6 +34,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  image: {
+    flex: 1,
+    justifyContent: 'center',
   },
   textInput: {
     width: "88%",
