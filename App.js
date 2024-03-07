@@ -2,8 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View,  } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Screen1 from './Components/Screen1';
-import Screen2 from './Components/Screen2';
+import startScreen from './Components/startScreen';
+import chatScreen from './Components/chatScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,8 +12,8 @@ const App = () => {
 
     <NavigationContainer style={styles.container}>
       <Stack.Navigator initialRouteName='Screen1'>
-        <Stack.Screen name='Screen1' component={Screen1}/>
-        <Stack.Screen name='Screen2' component={Screen2}/>
+        <Stack.Screen name='startScreen' component={startScreen}/>
+        <Stack.Screen name='chatScreen' component={chatScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
