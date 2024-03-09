@@ -10,18 +10,20 @@ const StartScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-      <Text style={styles.text} >Hello Start Screen</Text>
-        <TextInput
-          style={styles.textInput}
-          value={name}
-          onChangeText={setName}
-          placeholder='Type your username here'
-        >
-        </TextInput>
-        <Button
-          title="Go to Chat Screen"
-          onPress={() => navigation.navigate('ChatScreen', {name: name})}
+      <View style={styles.innerContainer}>
+        <Text style={styles.text} >Hello Start Screen</Text>
+          <TextInput
+            style={styles.textInput}
+            value={name}
+            onChangeText={setName}
+            placeholder='Type your username here'
+          >
+          </TextInput>
+          <Button
+            title="Go to Chat Screen"
+            onPress={() => navigation.navigate('ChatScreen', {name: name})}
           />
+      </View>
       </ImageBackground>
     </View>
 
@@ -37,6 +39,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+  innerContainer: {
+    alignItems: 'center'
+  },
   textInput: {
     width: '88%',
     padding: 15,
@@ -48,7 +53,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     fontWeight: '700',
-    fontSize: '25'
+    fontSize: 25
   }
 });
 
