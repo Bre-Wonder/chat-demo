@@ -5,28 +5,37 @@ const image = require('../A5-chatapp-assets/Background Image.png');
 
 const StartScreen = ({ navigation }) => {
   const [name, setName] = useState('');
+  const [backgroundColor, setBackgroundColor] = useState('');
 
 
   return (
     <View style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
+      <Text style={styles.text} > Chat Me Up</Text>
       <View style={styles.innerContainer}>
-        <Text style={styles.text} > Chat Me Up</Text>
-          <TextInput
-            style={styles.textInput}
-            value={name}
-            onChangeText={setName}
-            placeholder='Type your username here'
-          >
-          </TextInput>
-          <TouchableOpacity
-            title="Pick a Background Color "
-            onPress={() => navigation.navigate('ChatScreen', {name: name})}
-          />
-          <Button
-            title="Go to Chat Screen"
-            onPress={() => navigation.navigate('ChatScreen', {name: name})}
-          />
+        <TextInput
+          style={styles.textInput}
+          value={name}
+          onChangeText={setName}
+          placeholder='Type your username here'
+        >
+        </TextInput>
+        <TouchableOpacity
+          title="Pick a Background Color "
+          onPress={() => navigation.navigate('ChatScreen', {backgroundColor: backgroundColor})}
+        />
+        <TextInput
+          style={styles.textInput2}
+          value={backgroundColor}
+          onChangeText={setBackgroundColor}
+          placeholder='Pick a Background Color.'
+
+        >
+        </TextInput>
+        <Button
+          title="Go to Chat Screen"
+          onPress={() => navigation.navigate('ChatScreen', {name: name})}
+        />
       </View>
       </ImageBackground>
     </View>
@@ -44,7 +53,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   innerContainer: {
-    alignItems: 'center'
+    alignItems: 'center',
+    borderWidth: 2,
+    backgroundColor: '#FFFFFF',
   },
   textInput: {
     width: '88%',
@@ -53,6 +64,13 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 15, 
     textAlign: 'center'
+  },
+  textInput2: {
+    width: '88%',
+    padding: 10,
+    marginTop: 5,
+    marginBottom: 15, 
+    textAlign: 'left'
   },
   text: {
     textAlign: 'center',
