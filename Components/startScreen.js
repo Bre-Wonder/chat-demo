@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {ImageBackground, StyleSheet, View, Text, Button, TextInput } from "react-native";
+import { withSafeAreaInsets } from "react-native-safe-area-context";
 
 const image = require('../A5-chatapp-assets/Background Image.png');
 
@@ -11,7 +12,7 @@ const StartScreen = ({ navigation }) => {
     <View style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
       <View style={styles.innerContainer}>
-        <Text style={styles.text} >Hello Start Screen</Text>
+        <Text style={styles.text} > Chat Me Up</Text>
           <TextInput
             style={styles.textInput}
             value={name}
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: '600',
     fontSize: 45,
-    fontColor: '#FFFFFF'
+    color: '#FFFFFF'
   }
 });
 
