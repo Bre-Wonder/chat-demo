@@ -1,6 +1,5 @@
 import { useState } from "react";
-import {ImageBackground, StyleSheet, View, Text, Button, TextInput } from "react-native";
-import { withSafeAreaInsets } from "react-native-safe-area-context";
+import {ImageBackground, StyleSheet, View, Text, Button, TextInput, TouchableOpacity } from "react-native";
 
 const image = require('../A5-chatapp-assets/Background Image.png');
 
@@ -20,6 +19,10 @@ const StartScreen = ({ navigation }) => {
             placeholder='Type your username here'
           >
           </TextInput>
+          <TouchableOpacity
+            title="Pick a Background Color "
+            onPress={() => navigation.navigate('ChatScreen', {name: name})}
+          />
           <Button
             title="Go to Chat Screen"
             onPress={() => navigation.navigate('ChatScreen', {name: name})}
