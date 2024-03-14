@@ -17,23 +17,39 @@ const StartScreen = ({ navigation }) => {
           style={styles.textInput}
           value={name}
           onChangeText={setName}
-          placeholder='Type your username here'
+          placeholder='Your Username Here'
         >
         </TextInput>
-        <TouchableOpacity
-          title="Pick a Background Color "
-          onPress={() => navigation.navigate('ChatScreen', {backgroundColor: backgroundColor})}
-        />
-        <TextInput
-          style={styles.textInput2}
-          value={backgroundColor}
-          onChangeText={setBackgroundColor}
+        <Text
+          style={styles.text2}
           placeholder='Pick a Background Color.'
-
         >
-        </TextInput>
+        Choose Background Color
+        </Text>
+        <View style={styles.colorGrid}>
+          <TouchableOpacity  
+            style={styles.button1}
+            onPress={() => navigation.navigate('ChatScreen', {backgroundColor: '#090C08'})} >
+            <Text>       </Text>
+          </TouchableOpacity>
+          <TouchableOpacity  
+            style={styles.button2}
+            onPress={() => navigation.navigate('ChatScreen', {backgroundColor: '#474056'})} >
+            <Text>        </Text>
+          </TouchableOpacity>
+          <TouchableOpacity  
+            style={styles.button3}
+            onPress={() => navigation.navigate('ChatScreen', {backgroundColor: '#8A95A5'})} >
+            <Text>        </Text>
+          </TouchableOpacity>
+          <TouchableOpacity  
+            style={styles.button4}
+            onPress={() => navigation.navigate('ChatScreen', {backgroundColor: '#B9C6AE'})} >
+            <Text>        </Text>
+          </TouchableOpacity>
+        </View> 
         <Button
-          title="Go to Chat Screen"
+          title="Start Chatting"
           onPress={() => navigation.navigate('ChatScreen', {name: name})}
         />
       </View>
@@ -54,7 +70,7 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     alignItems: 'center',
-    borderWidth: 2,
+    borderWidth: 1,
     backgroundColor: '#FFFFFF',
   },
   textInput: {
@@ -65,12 +81,38 @@ const styles = StyleSheet.create({
     marginBottom: 15, 
     textAlign: 'center'
   },
-  textInput2: {
+  text2: {
     width: '88%',
     padding: 10,
     marginTop: 5,
     marginBottom: 15, 
     textAlign: 'left'
+  },
+  colorGrid: {
+  },
+  button1: {
+    backgroundColor: '#090C08',
+    height: 50,
+    width: 50,
+    borderRadius: 25
+  },
+  button2: {
+    backgroundColor: '#474056',
+    height: 50,
+    width: 50,
+    borderRadius: 25
+  },
+  button3: {
+    backgroundColor: '#8A95A5',
+    height: 50,
+    width: 50,
+    borderRadius: 25
+  },
+  button4: {
+    backgroundColor: '#B9C6AE',
+    height: 50,
+    width: 50,
+    borderRadius: 25
   },
   text: {
     textAlign: 'center',
