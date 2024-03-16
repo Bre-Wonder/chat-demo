@@ -7,9 +7,11 @@ const image = require('../A5-chatapp-assets/Background Image.png');
 const StartScreen = ({ navigation }) => {
   // State that defines both the username of the chat screen
   const [name, setName] = useState('');
-  // const [backgroundColor, setBackgroundColor] = useState('');
+  const [backgroundColor, setBackgroundColor] = useState('');
 
-  // const colorChoice = (color) => setBackgroundColor(color);
+  const handColorChange = (color) => {
+    setBackgroundColor(color);
+  }
 
 
   return (
@@ -35,26 +37,26 @@ const StartScreen = ({ navigation }) => {
         {/* List of circular buttons that determine what color the background color of the ChatScreen wiill be */}
         <View style={styles.colorGrid}>
           <TouchableOpacity  
-            style={styles.button1}
-            onPress={() =>  navigation.navigate('ChatScreen', {backgroundColor: '#090C08'})} >
+            style={[styles.circleButton, {backgroundColor: '#090C08'}]}
+            onPress={() => handColorChange ('#090C08')} >
           </TouchableOpacity>
           <TouchableOpacity  
-            style={styles.button2}
-            onPress={() => navigation.navigate('ChatScreen', {backgroundColor: '#474056'})} >
+            style={[styles.circleButton, {backgroundColor: '#474056'}]}
+            onPress={() => handColorChange ('#474056')} >
           </TouchableOpacity>
           <TouchableOpacity  
-            style={styles.button3}
-            onPress={() => navigation.navigate('ChatScreen', {backgroundColor: '#8A95A5'})} >
+            style={[styles.circleButton, {backgroundColor: '#8A95A5'}]}
+            onPress={() => handColorChange ('#8A95A5')} >
           </TouchableOpacity>
-          <TouchableOpacity  
-            style={styles.button4}
-            onPress={() => navigation.navigate('ChatScreen', {backgroundColor: '#B9C6AE'})} >
+          <TouchableOpacity 
+            style={[styles.circleButton, {backgroundColor: '#B9C6AE'}]}
+            onPress={() => handColorChange ('#B9C6AE')} >
           </TouchableOpacity>
         </View> 
         {/* Button to navigage to ChatScreen */}
         <Button
           title="Start Chatting"
-          onPress={() => navigation.navigate('ChatScreen', {name: name})}
+          onPress={() => navigation.navigate('ChatScreen', {name: name, backgroundColor: backgroundColor})}
         />
       </View>
       </ImageBackground>
@@ -101,38 +103,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 10,
   },
-  button1: {
-    backgroundColor: '#090C08',
-    height: 50,
-    width: 50,
-    borderRadius: 25,
-    margin: 10,
-    shadowColor: 'black',
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.3
-  },
-  button2: {
-    backgroundColor: '#474056',
-    height: 50,
-    width: 50,
-    borderRadius: 25,
-    margin: 10,
-    shadowColor: 'black',
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.3
-  },
-  button3: {
-    backgroundColor: '#8A95A5',
-    height: 50,
-    width: 50,
-    borderRadius: 25,
-    margin: 10,
-    shadowColor: 'black',
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.3
-  },
-  button4: {
-    backgroundColor: '#B9C6AE',
+  circleButton: {
     height: 50,
     width: 50,
     borderRadius: 25,
