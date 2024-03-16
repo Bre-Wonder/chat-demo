@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native"; 
+import StartScreen from "./StartScreen";
 
 const ChatScreen = ({ route, navigation }) => {
 
+  // Routing in username and background color from StartScreen
   const { name } = route.params;
   const { backgroundColor } = route.params;
 
@@ -17,6 +19,7 @@ const ChatScreen = ({ route, navigation }) => {
   );
 }
 
+// Styles created for ChatScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
