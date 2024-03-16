@@ -10,6 +10,7 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
 
+    // Added NavigationContainer in order for user to change screens
     <NavigationContainer style={styles.container}>
       <Stack.Navigator initialRouteName='StartScreen'>
         <Stack.Screen name='StartScreen' component={StartScreen}/>
