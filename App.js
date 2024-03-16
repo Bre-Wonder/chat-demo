@@ -20,6 +20,7 @@ const App = () => {
   );
 }
 
+// Styles created for App.js
 const styles = StyleSheet.create({
   container: {
     flex: 1,
