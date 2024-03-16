@@ -11,7 +11,7 @@ const App = () => {
   return (
 
     <NavigationContainer style={styles.container}>
-      <Stack.Navigator initialRouteName='Screen1'>
+      <Stack.Navigator initialRouteName='StartScreen'>
         <Stack.Screen name='StartScreen' component={StartScreen}/>
         <Stack.Screen name='ChatScreen' component={ChatScreen}/>
       </Stack.Navigator>
