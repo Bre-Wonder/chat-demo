@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {ImageBackground, StyleSheet, View, Text, Button, TextInput, TouchableOpacity} from "react-native";
+import {ImageBackground, StyleSheet, View, Text, Button, TextInput, TouchableOpacity, Platform, KeyboardAvoidingView} from "react-native";
 
 const image = require('../A5-chatapp-assets/Background Image.png');
 
@@ -36,6 +36,7 @@ const StartScreen = ({ navigation }) => {
           Choose Your Background Color
           </Text>
           {/* List of circular buttons that determine what color the background color of the ChatScreen wiill be */}
+          {/* Accessability messages available in lesson 5.2 to add to buttons */}
           <View style={styles.colorGrid}>
             <TouchableOpacity  
               style={[styles.circleButton, {backgroundColor: '#090C08'}]}
@@ -62,6 +63,7 @@ const StartScreen = ({ navigation }) => {
           />
         </View>
       </ImageBackground>
+      {Platform.OS === "ios" ? <KeyboardAvoidingView behavior="padding" /> : null}
     </View>
 
   );
