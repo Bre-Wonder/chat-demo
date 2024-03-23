@@ -56,11 +56,12 @@ const StartScreen = ({ navigation }) => {
             </TouchableOpacity>
           </View> 
           {/* Button to navigage to ChatScreen */}
-          <Button
-            style={[styles.button, {backgroundColor: '#757083'}]}
-            title="Start Chatting"
+          <TouchableOpacity
+            style={styles.button}
             onPress={() => navigation.navigate('ChatScreen', {name: name, backgroundColor: backgroundColor})}
-          />
+          >
+            <Text style={styles.buttonText}>Start Chatting</Text>
+          </TouchableOpacity>
         </View>
       </ImageBackground>
       {Platform.OS === "ios" ? <KeyboardAvoidingView behavior="padding" /> : null}
@@ -132,10 +133,17 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3
   },
   button: {
+    height: 50,
+    width: '80%',
+    backgroundColor: '#757083',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  buttonText: {
     fontSize: 16,
     fontWeight: 600,
-    color: '#FFFFFF',
-    backgroundColor: '#757083'
+    color: '#FFFFFF'
   },
   text: {
     textAlign: 'center',
