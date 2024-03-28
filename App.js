@@ -36,7 +36,9 @@ const App = () => {
     <NavigationContainer style={styles.container}>
       <Stack.Navigator initialRouteName='StartScreen'>
         <Stack.Screen name='StartScreen' component={StartScreen}/>
-        <Stack.Screen name='ChatScreen' component={ChatScreen}/>
+        <Stack.Screen name='ChatScreen'>
+          {props => <ChatScreen db={db} {...props} />}
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
