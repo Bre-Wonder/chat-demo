@@ -1,13 +1,27 @@
 import { useState } from "react";
-import {ImageBackground, StyleSheet, View, Text, Button, TextInput, TouchableOpacity, Platform, KeyboardAvoidingView} from "react-native";
+import {ImageBackground, StyleSheet, View, Text, Button, TextInput, TouchableOpacity, Platform, KeyboardAvoidingView, Alert} from "react-native";
+import { getAuth, signInAnonymously } from "firebase/auth";
 
 const image = require('../A5-chatapp-assets/Background Image.png');
 
 
 const StartScreen = ({ navigation }) => {
+  const auth = getAuth();
   // State that defines both the username of the chat screen
   const [name, setName] = useState('');
   const [backgroundColor, setBackgroundColor] = useState('');
+
+  //allows React-Native to authenticate the user without the user having to loging, it will remember the users data
+  const signInUser = () => {
+    signInAnonymously(auth)
+      .then(result => {
+        navigation.navigate('ChatScreen', {name: name, userID: result.user.uid, backgroundColor: backgroundColor});
+        Alert.alert("Signed in successfully");
+      })
+      .catch((error) => {
+        Alert.alert("Unable to sign in, try again later.")
+      })
+  }
 
   const handColorChange = (color) => {
     setBackgroundColor(color);
@@ -58,7 +72,7 @@ const StartScreen = ({ navigation }) => {
           {/* Button to navigage to ChatScreen */}
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate('ChatScreen', {name: name, backgroundColor: backgroundColor})}
+            onPress={signInUser}
           >
             <Text style={styles.buttonText}>Start Chatting</Text>
           </TouchableOpacity>
