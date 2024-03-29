@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Bubble, GiftedChat, renderBubble } from "react-native-gifted-chat";
-import { StyleSheet, View, KeyboardAvoidingView, Platform, FlatList } from "react-native"; 
+import { StyleSheet, View, KeyboardAvoidingView, Platform, FlatList, Alert } from "react-native"; 
 
 import { collection, getDocs, addDoc, onSnapshot, query, where } from 'firebase/firestore';
+import { async } from "@firebase/util";
+import { isSearchBarAvailableForCurrentPlatform } from "react-native-screens";
 
 // import StartScreen from "./StartScreen"; - not sure if this is needed
 
@@ -16,45 +18,79 @@ const ChatScreen = ({ route, navigation, db }) => {
 
 // Moving it outside ******
 //using setter method - setMessages to allow useres to send back and forth messages
-setMessages([
-  {
-    _id: 1,
-    text: "Hello Developer",
-    createdAt: new Date(),
-    user: {
-      _id: 2,
-      name: "React Native",
-      avatar: "https://placeimg.com/140/140/any",
-    },
-    //marks message as sent, uses one tick
-    sent: true,
-    //marked message as received, uses two ticks
-    received: true,
-    //marks message as pending, uses clock loader
-    pending: true
-  },
-  {
-    _id: 2,
-    text: 'You have enterd the chat',
-    createdAt: new Date(),
-    system: true,
-  },
-]);
+// setMessages([
+//   {
+//     _id: 1,
+//     text: "Hello Developer",
+//     createdAt: new Date(),
+//     user: {
+//       _id: 2,
+//       name: "React Native",
+//       avatar: "https://placeimg.com/140/140/any",
+//     },
+//     //marks message as sent, uses one tick
+//     sent: true,
+//     //marked message as received, uses two ticks
+//     received: true,
+//     //marks message as pending, uses clock loader
+//     pending: true
+//   },
+//   {
+//     _id: 2,
+//     text: 'You have enterd the chat',
+//     createdAt: new Date(),
+//     system: true,
+//   },
+// ]);
 
-  const fetchChatMessages = async () => {
-    const m = await getDocs(collection(db, "chatmessages"));
-    let newMessages = [];
-    m.forEach(docObject => {
-      newMessages.push({ id: docObject.id, ...docObject.data() })
-    });
-      setNewMessages(newMessages);
+  // const fetchChatMessages = async () => {
+  //   const m = await getDocs(collection(db, "chatmessages"));
+  //   let newMessages = [];
+  //   m.forEach(docObject => {
+  //     newMessages.push({ id: docObject.id, ...docObject.data() })
+  //   });
+  //     setNewMessages(newMessages);
 
-  }
+  // }
+  // //adds chat messages to the already fetched ones to keep both sides of the conversation going
+  // const addChatMessages = async (newMessages) => {
+  //   const newMessagesRef = await addDoc(collection(db, "chatmessages"), newMessages);
+  //   if (newMessagesRef.id) {
+  //     //potentially add line here
+  //     Alert.alert(`A new message has been sent`);
+  //   }else{
+  //     Alert.alert("Unable to send new chat message");
+  //   }
+  // }
 
   useEffect(() => {
     navigation.setOptions({ title: name });
 
-    fetchChatMessages();
+    setMessages([
+      {
+        _id: 1,
+        text: "Hello Developer",
+        createdAt: new Date(),
+        user: {
+          _id: 2,
+          name: "React Native",
+          avatar: "https://placeimg.com/140/140/any",
+        },
+        //marks message as sent, uses one tick
+        sent: true,
+        //marked message as received, uses two ticks
+        received: true,
+        //marks message as pending, uses clock loader
+        pending: true
+      },
+      {
+        _id: 2,
+        text: 'You have enterd the chat',
+        createdAt: new Date(),
+        system: true,
+      },
+    ]);
+    
   }, []);
 
   // changes the color of the message bubbles from user to user
@@ -73,8 +109,12 @@ setMessages([
   }
 
   //takes the setter method and uses it to present previous message along with new messages sent
+  // const onSend = (newMessages) => {
+  //   addDoc(collection(db, "chatmessages"), newMessages[0])
+  // }
+
   const onSend = (newMessages) => {
-    addDoc(collection(db, "chatmessages"), newMessages[0])
+    setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages))
   }
 
   return (
