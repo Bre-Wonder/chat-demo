@@ -23,7 +23,7 @@ const StartScreen = ({ navigation }) => {
       })
   }
 
-  const handColorChange = (color) => {
+  const handleColorChange = (color) => {
     setBackgroundColor(color);
   }
 
@@ -54,19 +54,19 @@ const StartScreen = ({ navigation }) => {
           <View style={styles.colorGrid}>
             <TouchableOpacity  
               style={[styles.circleButton, {backgroundColor: '#090C08'}]}
-              onPress={() => handColorChange ('#090C08')} >
+              onPress={() => handleColorChange ('#090C08')} >
             </TouchableOpacity>
             <TouchableOpacity  
               style={[styles.circleButton, {backgroundColor: '#474056'}]}
-              onPress={() => handColorChange ('#474056')} >
+              onPress={() => handleColorChange ('#474056')} >
             </TouchableOpacity>
             <TouchableOpacity  
               style={[styles.circleButton, {backgroundColor: '#8A95A5'}]}
-              onPress={() => handColorChange ('#8A95A5')} >
+              onPress={() => handleColorChange ('#8A95A5')} >
             </TouchableOpacity>
             <TouchableOpacity 
               style={[styles.circleButton, {backgroundColor: '#B9C6AE'}]}
-              onPress={() => handColorChange ('#B9C6AE')} >
+              onPress={() => handleColorChange ('#B9C6AE')} >
             </TouchableOpacity>
           </View> 
           {/* Button to navigage to ChatScreen */}
