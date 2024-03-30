@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { Bubble, GiftedChat, renderBubble } from "react-native-gifted-chat";
-import { StyleSheet, View, KeyboardAvoidingView, Platform, FlatList, Alert } from "react-native"; 
+import { StyleSheet, View, KeyboardAvoidingView, Platform, FlatList, Alert, TouchableOpacity } from "react-native"; 
 
 import { collection, getDocs, addDoc, onSnapshot, query, where } from 'firebase/firestore';
 import { async } from "@firebase/util";
-import { isSearchBarAvailableForCurrentPlatform } from "react-native-screens";
 
 // import StartScreen from "./StartScreen"; - not sure if this is needed
 
@@ -52,7 +51,8 @@ const ChatScreen = ({ route, navigation, db }) => {
   //     setNewMessages(newMessages);
 
   // }
-  // //adds chat messages to the already fetched ones to keep both sides of the conversation going
+
+  //adds chat messages to the already fetched ones to keep both sides of the conversation going
   // const addChatMessages = async (newMessages) => {
   //   const newMessagesRef = await addDoc(collection(db, "chatmessages"), newMessages);
   //   if (newMessagesRef.id) {
@@ -108,13 +108,10 @@ const ChatScreen = ({ route, navigation, db }) => {
     />
   }
 
-  //takes the setter method and uses it to present previous message along with new messages sent
-  // const onSend = (newMessages) => {
-  //   addDoc(collection(db, "chatmessages"), newMessages[0])
-  // }
 
+  // adds message to the chatmessage collection in the database when user presses send
   const onSend = (newMessages) => {
-    setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages))
+    addDoc(collection(db, "chatmessages"), newMessages[0])
   }
 
   return (
@@ -124,7 +121,7 @@ const ChatScreen = ({ route, navigation, db }) => {
         renderBubble={renderBubble}
         onSend={messages => onSend(messages)}
         user={{
-          _id: 1
+          _id: id, name
         }}      
       />
       { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null}
