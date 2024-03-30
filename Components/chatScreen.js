@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Bubble, GiftedChat, renderBubble } from "react-native-gifted-chat";
 import { StyleSheet, View, KeyboardAvoidingView, Platform, FlatList, Alert, TouchableOpacity } from "react-native"; 
 
-import { collection, getDocs, addDoc, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, getDocs, addDoc, onSnapshot, query, where, doc, orderBy } from 'firebase/firestore';
 import { async } from "@firebase/util";
 
 // import StartScreen from "./StartScreen"; - not sure if this is needed
@@ -14,6 +14,7 @@ const ChatScreen = ({ route, navigation, db }) => {
   // Routing in username and background color from StartScreen
   const { name } = route.params;
   const { backgroundColor } = route.params;
+  const { id } = route.params;
 
 // Moving it outside ******
 //using setter method - setMessages to allow useres to send back and forth messages
@@ -66,31 +67,23 @@ const ChatScreen = ({ route, navigation, db }) => {
   useEffect(() => {
     navigation.setOptions({ title: name });
 
-    setMessages([
-      {
-        _id: 1,
-        text: "Hello Developer",
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: "React Native",
-          avatar: "https://placeimg.com/140/140/any",
-        },
-        //marks message as sent, uses one tick
-        sent: true,
-        //marked message as received, uses two ticks
-        received: true,
-        //marks message as pending, uses clock loader
-        pending: true
-      },
-      {
-        _id: 2,
-        text: 'You have enterd the chat',
-        createdAt: new Date(),
-        system: true,
-      },
-    ]);
+    const q = query(collection(db, "chatmessages"), orderBy("createdAt", "desc"));
+    const unsubChatMessages = onSnapshot(q, (documentsSnapshot) => {
+      let newMessages = [];
+      documentsSnapshot.forEach(doc => {
+        newMessages.push({
+          id: doc.id,
+          ...doc.data(),
+          createdAt: new Date(doc.data().createdAt.toMillis())
+        })
+      });
+      setMessages(newMessages);
+    });
     
+    return() => {
+      if (unsubChatMessages) unsubChatMessages();
+    }
+
   }, []);
 
   // changes the color of the message bubbles from user to user
