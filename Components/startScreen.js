@@ -11,11 +11,11 @@ const StartScreen = ({ navigation }) => {
   const [name, setName] = useState('');
   const [backgroundColor, setBackgroundColor] = useState('');
 
-  //allows React-Native to authenticate the user without the user having to loging, it will remember the users data
+  //allows React-Native to authenticate the user without the user having to log in, it will remember the users data
   const signInUser = () => {
     signInAnonymously(auth)
       .then(result => {
-        navigation.navigate('ChatScreen', {name: name, userID: result.user.uid, backgroundColor: backgroundColor});
+        navigation.navigate('ChatScreen', {name: name, id: result.user.uid, backgroundColor: backgroundColor});
         Alert.alert("Signed in successfully");
       })
       .catch((error) => {
