@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
-import { Bubble, GiftedChat, renderBubble } from "react-native-gifted-chat";
-import { StyleSheet, View, KeyboardAvoidingView, Platform, FlatList, Alert, TouchableOpacity } from "react-native"; 
+import { Bubble, GiftedChat } from "react-native-gifted-chat";
+import { StyleSheet, View, KeyboardAvoidingView, Platform } from "react-native"; 
 
 import { collection, getDocs, addDoc, onSnapshot, query, where, doc, orderBy } from 'firebase/firestore';
-import { async } from "@firebase/util";
-
-// import StartScreen from "./StartScreen"; - not sure if this is needed
 
 // passing database prop just below
 const ChatScreen = ({ route, navigation, db }) => {
@@ -16,61 +13,15 @@ const ChatScreen = ({ route, navigation, db }) => {
   const { backgroundColor } = route.params;
   const { id } = route.params;
 
-// Moving it outside ******
-//using setter method - setMessages to allow useres to send back and forth messages
-// setMessages([
-//   {
-//     _id: 1,
-//     text: "Hello Developer",
-//     createdAt: new Date(),
-//     user: {
-//       _id: 2,
-//       name: "React Native",
-//       avatar: "https://placeimg.com/140/140/any",
-//     },
-//     //marks message as sent, uses one tick
-//     sent: true,
-//     //marked message as received, uses two ticks
-//     received: true,
-//     //marks message as pending, uses clock loader
-//     pending: true
-//   },
-//   {
-//     _id: 2,
-//     text: 'You have enterd the chat',
-//     createdAt: new Date(),
-//     system: true,
-//   },
-// ]);
-
-  // const fetchChatMessages = async () => {
-  //   const m = await getDocs(collection(db, "chatmessages"));
-  //   let newMessages = [];
-  //   m.forEach(docObject => {
-  //     newMessages.push({ id: docObject.id, ...docObject.data() })
-  //   });
-  //     setNewMessages(newMessages);
-
-  // }
-
-  //adds chat messages to the already fetched ones to keep both sides of the conversation going
-  // const addChatMessages = async (newMessages) => {
-  //   const newMessagesRef = await addDoc(collection(db, "chatmessages"), newMessages);
-  //   if (newMessagesRef.id) {
-  //     //potentially add line here
-  //     Alert.alert(`A new message has been sent`);
-  //   }else{
-  //     Alert.alert("Unable to send new chat message");
-  //   }
-  // }
-
   useEffect(() => {
     navigation.setOptions({ title: name });
 
+    // using onSnaptshot to use the Real-Time data sychonization functionality to show updates
+    // from multiple user and show on each of their screens
     const q = query(collection(db, "chatmessages"), orderBy("createdAt", "desc"));
-    const unsubChatMessages = onSnapshot(q, (documentsSnapshot) => {
+    const unsubChatMessages = onSnapshot(q, (docs) => {
       let newMessages = [];
-      documentsSnapshot.forEach(doc => {
+      docs.forEach(doc => {
         newMessages.push({
           id: doc.id,
           ...doc.data(),
@@ -114,7 +65,8 @@ const ChatScreen = ({ route, navigation, db }) => {
         renderBubble={renderBubble}
         onSend={messages => onSend(messages)}
         user={{
-          _id: id, name
+          _id: id,
+          name
         }}      
       />
       { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null}
