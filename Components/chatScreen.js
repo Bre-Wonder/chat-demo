@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { Bubble, GiftedChat } from "react-native-gifted-chat";
 import { StyleSheet, View, KeyboardAvoidingView, Platform } from "react-native"; 
 
-import { collection, getDocs, addDoc, onSnapshot, query, where, doc, orderBy } from 'firebase/firestore';
+import { collection, addDoc, onSnapshot, query, orderBy } from 'firebase/firestore';
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // passing database prop just below
 const ChatScreen = ({ route, navigation, db }) => {
