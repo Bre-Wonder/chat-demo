@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Bubble, GiftedChat } from "react-native-gifted-chat";
+import { Bubble, GiftedChat, InputToolbar } from "react-native-gifted-chat";
 import { StyleSheet, View, KeyboardAvoidingView, Platform } from "react-native"; 
 
 import { collection, addDoc, onSnapshot, query, orderBy } from 'firebase/firestore';
@@ -7,7 +7,7 @@ import { collection, addDoc, onSnapshot, query, orderBy } from 'firebase/firesto
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // passing database prop just below
-const ChatScreen = ({ route, navigation, db }) => {
+const ChatScreen = ({ route, navigation, db, isConnected }) => {
   const [messages, setMessages] = useState([]);
 
   // Routing in username and background color from StartScreen
@@ -15,29 +15,53 @@ const ChatScreen = ({ route, navigation, db }) => {
   const { backgroundColor } = route.params;
   const { id } = route.params;
 
+  //saves messages in AsyncStorage so that user can view them offline
+  const cacheChatMessages = async (messageToCache) => {
+    try {
+      await AsyncStorage.setItem('chat_messages', JSON.stringify(messageToCache));
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+  // loads message saved in AsyncStorage when app is not connected
+  const loadCachedMessages = async () => {
+    const cachedMessages = await AsyncStorage.getItem("chat_messages") || "[]";
+    setMessages(JSON.parse(cachedMessages));
+  }
+
+  let unsubChatMessages;
+
   useEffect(() => {
     navigation.setOptions({ title: name });
 
+    if (isConnected === true) {
+
+      if (unsubChatMessages) unsubChatMessages();
+      unsubChatMessages = null;
+
     // using onSnaptshot to use the Real-Time data sychonization functionality to show updates
     // from multiple user and show on each of their screens
-    const q = query(collection(db, "chatmessages"), orderBy("createdAt", "desc"));
-    const unsubChatMessages = onSnapshot(q, (docs) => {
-      let newMessages = [];
-      docs.forEach(doc => {
-        newMessages.push({
-          id: doc.id,
-          ...doc.data(),
-          createdAt: new Date(doc.data().createdAt.toMillis())
-        })
+      const q = query(collection(db, "chatmessages"), orderBy("createdAt", "desc"));
+      unsubChatMessages = onSnapshot(q, (docs) => {
+        let newMessages = [];
+        docs.forEach(doc => {
+          newMessages.push({
+            id: doc.id,
+            ...doc.data(),
+            createdAt: new Date(doc.data().createdAt.toMillis())
+          })
+        });
+        cacheChatMessages(newMessages);
+        setMessages(newMessages);
       });
-      setMessages(newMessages);
-    });
+    } else loadCachedMessages();
     
     return() => {
       if (unsubChatMessages) unsubChatMessages();
     }
 
-  }, []);
+  }, [isConnected]);
+
 
   // changes the color of the message bubbles from user to user
   const renderBubble = (props) => {
@@ -54,6 +78,11 @@ const ChatScreen = ({ route, navigation, db }) => {
     />
   }
 
+  // hides InputToolbar to prevent user from sending a message when isConnected if false
+  const renderInputToolbar = (props) => {
+    if (isConnected) return <InputToolbar {...props} />;
+    else return null;
+  }
 
   // adds message to the chatmessage collection in the database when user presses send
   const onSend = (newMessages) => {
@@ -65,6 +94,7 @@ const ChatScreen = ({ route, navigation, db }) => {
       <GiftedChat  
         messages={messages}
         renderBubble={renderBubble}
+        renderInputToolbar={renderInputToolbar}
         onSend={messages => onSend(messages)}
         user={{
           _id: id,
