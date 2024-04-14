@@ -2,9 +2,12 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View,  } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useNetInfo } from '@react-native-community/netinfo';
+import { useEffect } from 'react';
+import { LogBox, Alert } from 'react-native';
 
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, disableNetwork, enableNetwork } from "firebase/firestore";
 
 
 import StartScreen from './Components/StartScreen';
@@ -13,7 +16,21 @@ import ChatScreen from './Components/ChatScreen';
 //Create Navigator move between screens
 const Stack = createNativeStackNavigator();
 
+LogBox.ignoreLogs(["AsyncStorage has been extracted from"]);
+
 const App = () => {
+  const connectionStatus = useNetInfo();
+
+  //allows the Firestore Database to be disabled and enabled when app is disconnected and connected to the server
+  useEffect(() => {
+    if (connectionStatus.isConnected === false) {
+    Alert.alert("Connection lost!");
+    disableNetwork(db);
+  } else if (connectionStatus.isConnected === true) {
+    enableNetwork(db);
+  }
+}, [connectionStatus.isConnected]);
+
   // Your web app's Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyBfQtN1uImKV78l4LQT1143iafwdPZr8x0",
@@ -37,7 +54,7 @@ const App = () => {
       <Stack.Navigator initialRouteName='StartScreen'>
         <Stack.Screen name='StartScreen' component={StartScreen}/>
         <Stack.Screen name='ChatScreen'>
-          {props => <ChatScreen db={db} {...props} />}
+          {props => <ChatScreen isConnected={connectionStatus.isConnected} db={db} {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
