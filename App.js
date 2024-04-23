@@ -48,6 +48,8 @@ const App = () => {
   //Initialize Cloud FireStore and get a reference to the service
   const db = getFirestore(app);
 
+  const storage = getStorage(app);
+
   return (
 
     // Added NavigationContainer in order for user to change screens
@@ -55,7 +57,7 @@ const App = () => {
       <Stack.Navigator initialRouteName='StartScreen'>
         <Stack.Screen name='StartScreen' component={StartScreen}/>
         <Stack.Screen name='ChatScreen'>
-          {props => <ChatScreen isConnected={connectionStatus.isConnected} db={db} {...props} />}
+          {props => <ChatScreen isConnected={connectionStatus.isConnected} db={db} storage={storage} {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
