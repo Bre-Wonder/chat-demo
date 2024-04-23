@@ -9,7 +9,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomActions from "./CustomActions";
 
 // passing database prop just below
-const ChatScreen = ({ route, navigation, db, isConnected }) => {
+const ChatScreen = ({ route, navigation, db, isConnected, storage }) => {
   const [messages, setMessages] = useState([]);
 
   // Routing in username and background color from StartScreen
@@ -92,7 +92,7 @@ const ChatScreen = ({ route, navigation, db, isConnected }) => {
   }
 
   const renderCustomActions = (props) => {
-    return <CustomActions onSend={onSend} {...props} />;
+    return <CustomActions onSend={onSend} storage={storage} {...props} />;
     }
 
   const renderCustomView = (props) => {
