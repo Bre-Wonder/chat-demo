@@ -1,9 +1,10 @@
 import { TouchableOpacity, StyleSheet, Text, View, Alert } from 'react-native';
 import { useActionSheet } from '@expo/react-native-action-sheet';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
 
-const CustomActions = ({ wrapperStyle, inconTextStyle, onSend }) => {
+const CustomActions = ({ wrapperStyle, inconTextStyle, onSend, storage, userID }) => {
   const actionSheet = useActionSheet();
 
   // creates actions for user to choose additional options to send in chat
@@ -38,11 +39,25 @@ const CustomActions = ({ wrapperStyle, inconTextStyle, onSend }) => {
       let result = await ImagePicker.launchImageLibraryAsync();
       if (!result.canceled) {
         const imageURI = result.assets[0].uri;
+        const uniqueRefString = generateReference(imageURI);
         const response = await fetch(imageURI);
         const blob = await response.blob();
+        const newUploadRef = ref(storage, uniqueRefString);
+        uploadBytes(newUploadRef, blob).then(async (snapshot) => {
+          console.log('File has been uploaded successfully');
+          const imageURL = await getDownloadURL(snapshot.ref)
+          onSend({ image: imageURL })
+        })
       }
       else Alert.alert("Permissions haven't been granted.");
     }
+  }
+
+  //creates a reference of where photo are being stored in the firebase database
+  const generateReference = (uri) => {
+    const timeStamp = (new Date()).getTime();
+    const imageName = uri.split("/")[uri.split("/").length -1];
+    return `${userID}-${timeStamp}-${imageName}`;
   }
 
   // allows user to access their current location and send location in GiftedChat
