@@ -8,6 +8,7 @@ import { LogBox, Alert } from 'react-native';
 
 import { initializeApp } from "firebase/app";
 import { getFirestore, disableNetwork, enableNetwork } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 
 import StartScreen from './Components/StartScreen';
