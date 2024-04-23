@@ -6,6 +6,7 @@ import * as Location from 'expo-location';
 const CustomActions = ({ wrapperStyle, inconTextStyle, onSend }) => {
   const actionSheet = useActionSheet();
 
+  // creates actions for user to choose additional options to send in chat
   const onActionPress = () => {   
     const options = ["Choose from Library", "Take Picture", "Send Location", "Cancel"];
     const cancelButtonIndex = options.length - 1;
@@ -30,6 +31,7 @@ const CustomActions = ({ wrapperStyle, inconTextStyle, onSend }) => {
     );
   };
 
+  //allows a user to pick an image in their library
   const pickImage = async () => {
     let permissions = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (permissions?.granted) {
@@ -43,6 +45,7 @@ const CustomActions = ({ wrapperStyle, inconTextStyle, onSend }) => {
     }
   }
 
+  // allows user to access their current location and send location in GiftedChat
   const getLocation = async () => {
     let permissions = await Location.requestForegroundPermissionsAsync();
     if (permissions?.granted) {
