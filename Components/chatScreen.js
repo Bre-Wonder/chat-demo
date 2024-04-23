@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { Bubble, GiftedChat, InputToolbar } from "react-native-gifted-chat";
+import { Bubble, GiftedChat, InputToolbar, renderActions } from "react-native-gifted-chat";
 import { StyleSheet, View, KeyboardAvoidingView, Platform } from "react-native"; 
 
 import { collection, addDoc, onSnapshot, query, orderBy } from 'firebase/firestore';
+import MapView from 'react-native-maps';
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import CustomActions from "./CustomActions";
 
 // passing database prop just below
 const ChatScreen = ({ route, navigation, db, isConnected }) => {
@@ -14,6 +16,8 @@ const ChatScreen = ({ route, navigation, db, isConnected }) => {
   const { name } = route.params;
   const { backgroundColor } = route.params;
   const { id } = route.params;
+
+  let unsubChatMessages;
 
   //saves messages in AsyncStorage so that user can view them offline
   const cacheChatMessages = async (messageToCache) => {
@@ -28,8 +32,6 @@ const ChatScreen = ({ route, navigation, db, isConnected }) => {
     const cachedMessages = await AsyncStorage.getItem("chat_messages") || "[]";
     setMessages(JSON.parse(cachedMessages));
   }
-
-  let unsubChatMessages;
 
   useEffect(() => {
     navigation.setOptions({ title: name });
@@ -48,7 +50,7 @@ const ChatScreen = ({ route, navigation, db, isConnected }) => {
           newMessages.push({
             id: doc.id,
             ...doc.data(),
-            createdAt: new Date(doc.data().createdAt.toMillis())
+            createdAt: new Date(doc.data().createdAt.toMillis()),
           })
         });
         cacheChatMessages(newMessages);
@@ -89,6 +91,32 @@ const ChatScreen = ({ route, navigation, db, isConnected }) => {
     addDoc(collection(db, "chatmessages"), newMessages[0])
   }
 
+  const renderCustomActions = (props) => {
+    return <CustomActions onSend={onSend} {...props} />;
+    }
+
+  const renderCustomView = (props) => {
+    const { currentMessage } = props;
+    if (currentMessage.location) {
+      return (
+        <MapView
+          style={{
+            width: 150,
+            height: 100,
+            borderRadius: 13,
+            margin: 3}}
+          region={{
+            latitude: currentMessage.location.latitude,
+            longitude: currentMessage.location.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}        
+        />
+      );
+    }
+    return null;
+  }
+
   return (
     <View style={[styles.container, {backgroundColor}]}>
       <GiftedChat  
@@ -96,10 +124,12 @@ const ChatScreen = ({ route, navigation, db, isConnected }) => {
         renderBubble={renderBubble}
         renderInputToolbar={renderInputToolbar}
         onSend={messages => onSend(messages)}
+        renderActions={renderCustomActions}
+        renderCustomView={renderCustomView}
         user={{
           _id: id,
           name
-        }}      
+        }}     
       />
       { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null}
     </View>
