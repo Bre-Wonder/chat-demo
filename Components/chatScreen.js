@@ -12,7 +12,7 @@ import CustomActions from "./CustomActions";
 const ChatScreen = ({ route, navigation, db, isConnected, storage }) => {
   const [messages, setMessages] = useState([]);
 
-  // Routing in username and background color from StartScreen
+  // Routing in username, id, and background color from StartScreen
   const { name } = route.params;
   const { backgroundColor } = route.params;
   const { id } = route.params;
