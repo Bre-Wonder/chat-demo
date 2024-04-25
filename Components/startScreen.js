@@ -50,7 +50,6 @@ const StartScreen = ({ navigation }) => {
           Choose Your Background Color
           </Text>
           {/* List of circular buttons that determine what color the background color of the ChatScreen wiill be */}
-          {/* Accessability messages available in lesson 5.2 to add to buttons */}
           <View style={styles.colorGrid}>
             <TouchableOpacity  
               style={[styles.circleButton, {backgroundColor: '#090C08'}]}
