@@ -6,7 +6,7 @@ The Chat Me Upp Mobile App is designed for user to be able to allow users a chat
 ## How to get started:
 
 #1 Set up Expo:
-        
+
     *   Make sure that Node is a suitable version for Expo (at the time of writing this version 16 is the highest version of Node that can be used)
         Follow these commands to do so:
 
@@ -23,6 +23,7 @@ The Chat Me Upp Mobile App is designed for user to be able to allow users a chat
     *   To log into your expo-cli and run "expo login"
 
 #2 Creating New Project:
+
     *   Create new project in your IDE for React Native by typing the following command:
         
         npx create-expo-app hello-world --template ("hello world" can be exchanged with whatever you want your project name to be)
@@ -31,12 +32,14 @@ The Chat Me Upp Mobile App is designed for user to be able to allow users a chat
     *   If you are asked which templete to use, press enter to set up a blank one
 
 #3 Navigate to your New Project:
+
     *   Navigate to your new project via the command line to run app and view it in the Expo Go App. Use the following commands:
 
         cd hello-world (or replace with your projects name)
         npm start OR expo start OR npx expo (I used the last one to run the Metro Builder in my app)
 
 #4 Using Emulator OR Simulator:
+    
     *   Emulator: Android Studio (please see official documentation at https://developer.android.com/studio)
     *   Simulator: For iOS user, you can install ExpoGo for your mobile device OR for Mac OS user you can install Xcode (see instructions for this below)
     
