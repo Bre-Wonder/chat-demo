@@ -46,9 +46,11 @@ The Chat Me Upp Mobile App is designed for user to be able to allow users a chat
 
     *   Emulator: Android Studio (please see official documentation at 
         https://developer.android.com/studio)
-        
+
     *   Simulator: For iOS user, you can install ExpoGo for your mobile device OR for Mac OS 
-        user you can install Xcode (see instructions for this below)
+        user you can install Xcode (You must install Xcode and Xcode Command Line Tools from
+        the App Store)
+        
     
 
 ## Project Dependancies:
