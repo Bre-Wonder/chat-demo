@@ -33,7 +33,11 @@ The Chat Me Upp Mobile App is designed for user to be able to allow users a chat
     *   Navigate to your new project via the command line to run app and view it in the Expo Go App. Use the following commands:
 
         cd hello-world (or replace with your projects name)
-        npm start OR expo start
+        npm start OR expo start OR npx expo (I used the last one to run the Metro Builder in my app)
+
+#4 Using Emulator OR Simulator:
+    *   Emulator: Android Studio (please see official documentation at https://developer.android.com/studio)
+    *   Simulator: For iOS user, you can install ExpoGo for your mobile device OR for Mac OS user you can install Xcode (see instructions for this below)
     
 
 ## Project Dependancies:
