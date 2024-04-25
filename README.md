@@ -26,14 +26,18 @@ The Chat Me Upp Mobile App is designed for user to be able to allow users a chat
 
     *   Create new project in your IDE for React Native by typing the following command:
         
-        npx create-expo-app hello-world --template ("hello world" can be exchanged with whatever you want your project name to be)
-        Note: if this is the first time you have created a "create-expo-app", you might be asked to for permissions to add create-expo-app packaged. Type "y" and hit enter
+        npx create-expo-app hello-world --template ("hello world" can be exchanged with whatever
+        you want your project name to be)
+
+        Note: if this is the first time you have created a "create-expo-app", you might be 
+        asked to for permissions to add create-expo-app packaged. Type "y" and hit enter
 
     *   If you are asked which templete to use, press enter to set up a blank one
 
 #3 Navigate to your New Project:
 
-    *   Navigate to your new project via the command line to run app and view it in the Expo Go App. Use the following commands:
+    *   Navigate to your new project via the command line to run app and view it in the Expo Go 
+        App. Use the following commands:
 
         cd hello-world (or replace with your projects name)
         npm start OR expo start OR npx expo (I used the last one to run the Metro Builder in my app)
