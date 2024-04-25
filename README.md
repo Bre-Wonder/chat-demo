@@ -57,7 +57,9 @@ The Chat Me Upp Mobile App is designed for user to be able to allow users a chat
 *   React-Native
 *   React Navigation/Native Stack
 *   Expo CLI
-*   Google Firebase
+*   Gifted Chat Library
+*   Cloud Firestore from Google (using database, storage, and authentication)
+*   AsyncStorage
 
 ## API:
 *   ImagePicker API
