@@ -6,6 +6,7 @@ The Chat Me Upp Mobile App is designed for user to be able to allow users a chat
 ## How to get started:
 
 #1 Set up Expo:
+        
     *   Make sure that Node is a suitable version for Expo (at the time of writing this version 16 is the highest version of Node that can be used)
         Follow these commands to do so:
 
