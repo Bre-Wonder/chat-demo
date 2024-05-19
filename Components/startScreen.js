@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     width: '88%',
     padding: 15,
     borderWidth: 1,
-    marginTop: 15,
+    marginTop: 30,
     marginBottom: 15, 
     textAlign: 'center'
   },
@@ -151,7 +151,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#757083',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 15,
+    marginBottom: 25,
   },
   buttonText: {
     fontSize: 16,
