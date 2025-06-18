@@ -1,11 +1,13 @@
-# Start Here to set up your "Chat Me Up" Mobile App!
+# Chat-App
 
 ### Project Description:
 
 The Chat Me Upp Mobile App is designed for user to be able to allow users a chat interface where they can exchanged text and image messages. The user will start on an initial screen where they can choose their username and background color. Once the user clicks the "Start Chatting" button they will be directed to a second screen that allows the messaging of text, location and images. 
 
+### Technologies Used: 
+REACT NATIVE | React Navigation/Native Stack | Expo CLI | CGifted Chat Library | Cloud Firestore from Google (using database, storage, and authentication) | AsyncStorage
 
-## How to get started:
+### How to get started:
 
 #1 Set up Expo:
 
@@ -53,16 +55,14 @@ The Chat Me Upp Mobile App is designed for user to be able to allow users a chat
         user you can install Xcode (You must install Xcode and Xcode Command Line Tools from
         the App Store)
         
-    
 
-## Project Dependancies:
-*   React-Native
-*   React Navigation/Native Stack
-*   Expo CLI
-*   Gifted Chat Library
-*   Cloud Firestore from Google (using database, storage, and authentication)
-*   AsyncStorage
-
-## API:
+### API used:
 *   ImagePicker API
 *   Location API
+
+### Learning Moments: 
+This project showed me the value of space. You have to deliberately decide the ratios of how much space you want each section to take up. These choices can make the mobile application look vastly different. It hlep with my understanding of spacial awareness while creating an application. I really enjoyed this project, as you get a lot out of REACT Native. Give yourself the time to get all set up because the simulators and emulators can take a while to get going. 
+
+
+
+GitHub Repository site: `https://github.com/Bre-Wonder/chat-demo/tree/main`
